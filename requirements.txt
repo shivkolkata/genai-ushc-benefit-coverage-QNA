@@ -1,0 +1,6 @@
+langchain
+langchain_community
+gradio
+python-dotenv
+tiktoken
+transformers
