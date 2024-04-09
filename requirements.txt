@@ -1,6 +1,12 @@
-langchain
-langchain_community
 gradio
+qdrant_client
+langchain
+langchain-community
+langchain_experimental
+llama-parse
+fastembed
+#chromadb
 python-dotenv
-tiktoken
-transformers
+#langchain-groq
+chainlit
+unstructured[md]
