@@ -27,25 +27,25 @@ load_dotenv()
 def load_or_parse_data():
     data_file = "./data/parsed_data.pkl"
     llamaparse_api_key = os.getenv("llama_cloud_apikey")
-    if os.path.exists(data_file):
+    #if os.path.exists(data_file):
         # Load the parsed data from the file
-        parsed_data = joblib.load(data_file)
-    else:
+    #    parsed_data = joblib.load(data_file)
+    #else:
         # Perform the parsing step and store the result in llama_parse_documents
-        parsingInstructionBenefitCoverage = """The provided document is benefit & coverage information of a health plan"""
-        parser = LlamaParse(api_key=llamaparse_api_key,
-                            result_type="markdown",
-                            parsing_instruction=parsingInstructionBenefitCoverage,
-                            max_timeout=5000,)
-        llama_parse_documents = parser.load_data("./data/Capital_Selection_15.30.50_20percent_1-1-24.pdf")
+    parsingInstructionBenefitCoverage = """The provided document is benefit & coverage information of a health plan"""
+    parser = LlamaParse(api_key=llamaparse_api_key,
+                        result_type="markdown",
+                        parsing_instruction=parsingInstructionBenefitCoverage,
+                        max_timeout=5000,)
+    llama_parse_documents = parser.load_data("./data/Capital_Selection_15.30.50_20percent_1-1-24.pdf")
 
 
-        # Save the parsed data to a file
-        print("Saving the parse results in .pkl format ..........")
-        joblib.dump(llama_parse_documents, data_file)
+    # Save the parsed data to a file
+    print("Saving the parse results in .pkl format ..........")
+    joblib.dump(llama_parse_documents, data_file)
 
-        # Set the parsed data to the variable
-        parsed_data = llama_parse_documents
+    # Set the parsed data to the variable
+    parsed_data = llama_parse_documents
 
     return parsed_data
 
