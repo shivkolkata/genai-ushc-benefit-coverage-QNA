@@ -54,7 +54,7 @@ def create_vector_database():
 
     # Call the function to either load or parse the data
     llama_parse_documents = load_or_parse_data()
-    print(llama_parse_documents[0].text[:300])
+    #print(llama_parse_documents[0].text[:300])
 
     with open('data/output.md', 'a') as f:  # Open the file in append mode ('a')
         for doc in llama_parse_documents:
@@ -98,8 +98,15 @@ def create_vector_database():
 
     # create the qdrant client for connecting to vector db
     qdrant_url = os.getenv("qdrant_url")
+    qdrant_host = os.getenv("qdrant_host")
+    qdrant_cloud_cluster_apikey = os.getenv("qdrant_cloud_cluster_apikey")
     print("qdrant_url : ", qdrant_url)
-    qdrant_client = QdrantClient(url=qdrant_url)
+    print("qdrant_host : ", qdrant_host)
+    #qdrant_client = QdrantClient(url=qdrant_url)
+    qdrant_client = QdrantClient(
+        qdrant_host,
+        api_key=qdrant_cloud_cluster_apikey,
+    )
     print("Qdrant Client created successfully")
 
     # create the collection
@@ -114,6 +121,7 @@ def create_vector_database():
         docs,
         embed_model,
         url=qdrant_url,
+        api_key=qdrant_cloud_cluster_apikey,
         collection_name=collectionName,
         force_recreate=True
     )

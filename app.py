@@ -29,10 +29,18 @@ def set_custom_prompt():
 def process_question(message, history):
     print("Entered method - process_question(), message/question = ", message)
     load_dotenv()
+    
     # create the qdrant client for connecting to vector db
     qdrant_url = os.getenv("qdrant_url")
+    qdrant_host = os.getenv("qdrant_host")
+    qdrant_cloud_cluster_apikey = os.getenv("qdrant_cloud_cluster_apikey")
     print("qdrant_url : ", qdrant_url)
-    qdrant_client = QdrantClient(url=qdrant_url)
+    print("qdrant_host : ", qdrant_host)
+    #qdrant_client = QdrantClient(url=qdrant_url)
+    qdrant_client = QdrantClient(
+        qdrant_host,
+        api_key=qdrant_cloud_cluster_apikey,
+    )
     print("Qdrant Client created successfully")
 
     # create the collection
@@ -98,4 +106,4 @@ gr.ChatInterface(
     retry_btn=None,
     undo_btn="Delete Previous",
     clear_btn="Clear",
-).launch()
+).launch(share=True)
